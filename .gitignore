@@ -13,3 +13,8 @@ target/**
 hs_err_pid*
 
 .idea/*
+
+#### PRM additions to standard github list below.
+
+# Emacs backups
+*~
