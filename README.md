@@ -2,7 +2,7 @@
 
 The clarify-java library allows you to use the Clarify API from within Java. It handles all of the HTTP requests and response codes for you.
 
-The library itself is MIT-licensed so if you find anything which is incomplete, unclear, or even wrong, feel free to contribute to the Github project and make the community better.
+The library itself is MIT-licensed so if you find anything which is incomplete, unclear, or even wrong, feel free to submit a pull request!
 
 You can get started in minutes using our Quickstarts:
 
@@ -16,17 +16,42 @@ While what follows is documentation on the Java library specifically, when in do
 
 * Java JDK-1.6 or higher
 * Apache Maven 3 or higher
-* Please refer to this handy [Maven in 5 Minutes guide](http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) for any help using Maven
+
+## Java
+
+* Download Java from http://www.oracle.com.
+* Make sure you set your JAVA_HOME environment variable correctly.
+
+## Maven
+
+* Please refer to this handy [Maven in 5 Minutes guide](http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) for any help downloading, installing, configuring, or using Maven.
+
+## Eclipse
+
 * If you are using Eclipse, you can import the project by following these steps in the [M2Eclipse guide](http://books.sonatype.com/m2eclipse-book/reference/creating-sect-importing-projects.html) 
 
-## To build sdk:
+## Building the SDK locally
 
-* Run mvn install to build the sdk jar
+Note that this is not strictly necessary since Maven will automatically download the SDK from the central Maven repository if it is listed as a dependency.  If you'd like to build it locally, however, follow these instructions:
+```
+$ git clone https://github.com/Clarify/clarify-java.git
+$ cd clarify-java
+$ mvn install
+```
 
-## Maven Installation
+## Hello World!
 
-Create a new maven application.
-Add dependency to sdk in your application's pom.xml as below.
+To create and test a "Hello World!" app:
+```
+$ mvn archetype:generate -DgroupId=io.clarify.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+$ cd my-app
+$ mvn package
+$ java -cp target/my-app-1.0-SNAPSHOT.jar io.clarify.app.App
+```
+
+## Adding Clarify as a dependency in your Maven file
+
+Open your pom.xml file and add the following to the <dependencies> section:
 ```
 <dependency>
  <groupId>io.clarify.api</groupId>
@@ -39,8 +64,13 @@ If you're trying to launch your own library into the Maven Central Repository, c
 
 ## Testing your configuration
 
+Copy-and-paste the following code over the contents of App.java.
+
+*Don't forget to set the appKey variable to the application key you created!*
 
 ```
+package io.clarify.app
+
 import io.clarify.api.*;
 import java.net.URI;
 
@@ -61,7 +91,8 @@ public class App {
 }
 ```
 
-## Listing your media
+## Listing your bundles
+
 ```
 import io.clarify.api.*;
 import java.net.URI;
@@ -94,6 +125,7 @@ public class App {
 
 
 ## Searching your media
+
 ```
 import io.clarify.api.*;
 import java.net.URI;
@@ -125,6 +157,7 @@ public class App {
 ```
 
 ## Deleting your media
+
 ```
 import io.clarify.api.*;
 import java.net.URI;
@@ -148,6 +181,7 @@ public class App {
 ```
 
 ## Storing your Media
+
 ```
 // Create your first bundle using an example audio file
 String name = "Harvard Sentences";
@@ -158,6 +192,7 @@ System.out.println(bundle.id());
 ```
 
 ## Get the Metadata for a Bundle
+
 ```
 // Obtain the metadata in one API call by using the embed parameter
 String bundleId = "abc1234";
@@ -176,6 +211,7 @@ Metadata metadata = client.findMetadata(bundleId);
 ```
 
 ## Update the Metadata for a Bundle
+
 ```
 String bundleId = "abc1234";
 String newDataInJson = "{...}";
@@ -197,6 +233,7 @@ metadata.update(newDataInJson);
 ```
 
 ## Reset the Metadata (delete)
+
 ```
 String bundleId = "abc1234";
 Bundle bundle = client.findBundle(bundleId);
@@ -209,6 +246,7 @@ if bundle != null {
 ```
 
 ## Add a Track to a bundle
+
 ```
 String bundleId = "abc1234";
 Bundle bundle = client.findBundle(bundleId);
@@ -241,6 +279,7 @@ if bundle != null {
 ```
 
 ## Delete a track
+
 ```
 String bundleId = "abc1234";
 String trackId = "wxyz9876";
@@ -258,6 +297,7 @@ client.deleteTrack(bundleId, trackId)
 ```
 
 ## Direct-Access Client API
+
 Note: the direct-access client API uses the Resty API directly. See the [Resty documentation](http://beders.github.io/Resty/Resty/Overview.html) and [Javadoc](http://beders.github.io/Resty/Resty/API_Docs.html) for more details on how to use it. 
 
 Example:
